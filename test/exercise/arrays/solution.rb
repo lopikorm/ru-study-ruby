@@ -3,33 +3,32 @@ module Exercise
     class << self
       def max(array)
         max = 0
-        array.each_with_object(""){|el| el > max ? max = el : el }
+        array.each { |el| el > max ? max = el : el }
         max
       end
 
       def replace(array)
         i = 0
-        array.each_with_object(""){|el| el > 0 ? (array[i] = max(array) ;i += 1): i += 1}
+        array.map! { |el| el.positive? ? el = max(array) : el }
         array
       end
 
       def search(array, query, index = 0)
-        first = 0
-        last = array.length - 1
-        if array.size.zero?
-          -1
-        else
-          mid = first + ((last - first) / 2)
-          if array[mid] == query
-            index + mid
 
-          elsif array[mid] < query
-            index = index + mid + 1
-            search(array[mid + 1, last], query, index)
-          else
-            search(array[first, mid], query, index)
-          end
-        end
+        first_index = 0
+
+        last_index = array.length - 1
+
+        array.size.zero? ? (return -1) : mid_index = first_index + ((last_index - first_index) / 2)
+
+        array[mid_index] == query ? (return index + mid_index) :
+
+        array[mid_index] < query ?   
+       
+        search(array[mid_index + 1, last_index], query, index + mid_index + 1) :
+
+        search(array[first_index, mid_index], query, index)
+  
       end
     end
   end
