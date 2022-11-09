@@ -9,8 +9,12 @@ module Exercise
 
       def replace(array)
         i = 0
-        array.map! { |el| el.positive? ? el = max(array) : el }
-        array
+
+        array_replaced = []
+
+        array.each { |el| el.positive? ? array_replaced << max(array) : array_replaced << el }
+
+        array_replaced
       end
 
       def search(array, query, index = 0)
@@ -21,14 +25,14 @@ module Exercise
 
         array.size.zero? ? (return -1) : mid_index = first_index + ((last_index - first_index) / 2)
 
-        array[mid_index] == query ? (return index + mid_index) :
+        array[0] > query ? (return -1) : array[0]
 
-        array[mid_index] < query ?   
-       
-        search(array[mid_index + 1, last_index], query, index + mid_index + 1) :
+        array[-1] < query ? (return -1) : array[-1]
 
-        search(array[first_index, mid_index], query, index)
-  
+        array[mid_index] == query ? (return index + mid_index) : array[mid_index]
+
+        array[mid_index] < query ? search(array[mid_index + 1, last_index], query, index + mid_index + 1) : search(array[first_index, mid_index], query, index)
+
       end
     end
   end
