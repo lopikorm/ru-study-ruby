@@ -20,7 +20,7 @@ module Exercise
 
         if (array[0] > query) || (array[-1] < query) then (return -1) end
 
-        array[mid_index] == query ? (return index + mid_index) : array[mid_index]
+        if array[mid_index] == query then (return index + mid_index) end
 
         array[mid_index] < query ? search(array[mid_index + 1, last_index], query, index + mid_index + 1) : search(array[first_index, mid_index], query, index)
       end
